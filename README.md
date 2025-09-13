@@ -10,12 +10,18 @@
 
 ## Surveillance du processus GitLab Runner
 
-Clé : proc.num[gitlab-runner]
-Valeur attendue : 1 (ou plus, selon le nombre d'instances).
-Type d'information : Numeric (unsigned)
-Utilisation : Crée un trigger si la valeur est 0 (runner arrêté).
-Exemple de trigger : {Template_GitLab_Runner:proc.num[gitlab-runner].last(0)}=0
-Description : "Le processus GitLab Runner ne tourne pas."
+<custom-element data-json="%7B%22type%22%3A%22table-metadata%22%2C%22attributes%22%3A%7B%22title%22%3A%22Configuration%20du%20trigger%20pour%20la%20surveillance%20du%20processus%20GitLab%20Runner%22%7D%7D" />
+   Élément                | Détails                                                                                     |
+ |------------------------|---------------------------------------------------------------------------------------------|
+ | **Clé Zabbix**         | `proc.num[gitlab-runner]`                                                                   |
+ | **Valeur attendue**    | `1` (ou plus, selon le nombre d'instances)                                                 |
+ | **Type d'information** | Numeric (unsigned)                                                                          |
+ | **Utilisation**        | Créer un trigger si la valeur est `0` (processus arrêté).                                   |
+ | **Exemple de trigger** | `{Template_GitLab_Runner:proc.num[gitlab-runner].last(0)}=0`                                 |
+ | **Description**        | "Le processus GitLab Runner ne tourne pas."                                                 |
+ | **Séverité suggérée**  | High                                                                                       |
+ | **Actions suggérées**  | Vérifier l'état du service, relancer le processus avec `systemctl restart gitlab-runner`.    |
+
 ## Surveillance du service systemd de GitLab Runner
 
 | Élément                | Détails                                                                                     |
