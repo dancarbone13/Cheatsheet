@@ -37,8 +37,16 @@ Description : "Le log GitLab Runner n'a pas été mis à jour depuis {$LOG_MODIF
 ## Surveillance de l'utilisation CPU/Mémoire
 Tu peux surveiller l'utilisation des ressources par le processus gitlab-runner :
 
-Clé : proc.cpu.util[gitlab-runner]
-Clé : proc.mem[gitlab-runner,,,rss]
+## Triggers pour la surveillance de GitLab Runner
+
+| Catégorie      | Trigger                                      | Séverité  | Description                          |
+|----------------|----------------------------------------------|-----------|--------------------------------------|
+| Disponibilité  | `proc.num[gitlab-runner].last(0)}=0`         | High      | Processus GitLab Runner arrêté       |
+| CPU            | `proc.cpu.util[gitlab-runner].avg(5m)}>80`   | Warning   | Utilisation CPU élevée (>80% sur 5 min) |
+| CPU            | `proc.cpu.util[gitlab-runner].last(0)}=0`    | High      | Processus GitLab Runner inactif      |
+| RAM            | `proc.mem[gitlab-runner,,,rss].last(0)}>1G`  | Warning   | Utilisation mémoire élevée (>1 Go)   |
+| RAM            | `proc.mem[gitlab-runner,,,rss].last(0)}=0`   | High      | Processus ne consomme pas de mémoire |
+
 
 ## Crée des triggers si l'utilisation est à 0 (processus inactif) ou trop élevée (problème de performance).
 
