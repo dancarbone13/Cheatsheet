@@ -1,17 +1,17 @@
 # Cheatsheet
+## Vérifier l'intégration de l'agent Zabbix sur Linux
 
-## Comment voir si linux integre un agent zabbix?
-
-1. dpkg -l | grep zabbix-agent
-2. systemctl status zabbix-agent
-3. ps aux | grep zabbix_agentd
-
+ |  Commande                          | Description                                                                                     |
+ |-----------------------------------|-------------------------------------------------------------------------------------------------|
+ | `dpkg -l \| grep zabbix-agent`    | Vérifie si le paquet **zabbix-agent** est installé (Debian/Ubuntu).                            |
+ | `systemctl status zabbix-agent`   | Affiche le statut du service **zabbix-agent** (actif/inactif, erreurs éventuelles).             |
+ | `ps aux \| grep zabbix_agentd`    | Liste les processus en cours pour confirmer que **zabbix_agentd** est en exécution.            |
+ | `rpm -qa \| grep zabbix-agent`    | Alternative pour les distributions basées sur **RPM** (CentOS, RHEL, Fedora).                  |
 ## Logs agent zabbix : /var/log/zabbix/zabbix_agentd.log
 
 ## Surveillance du processus GitLab Runner
 
-<custom-element data-json="%7B%22type%22%3A%22table-metadata%22%2C%22attributes%22%3A%7B%22title%22%3A%22Configuration%20du%20trigger%20pour%20la%20surveillance%20du%20processus%20GitLab%20Runner%22%7D%7D" />
-   Élément                | Détails                                                                                     |
+ |  Élément               | Détails                                                                                     |
  |------------------------|---------------------------------------------------------------------------------------------|
  | **Clé Zabbix**         | `proc.num[gitlab-runner]`                                                                   |
  | **Valeur attendue**    | `1` (ou plus, selon le nombre d'instances)                                                 |
