@@ -42,13 +42,17 @@ Clé : proc.mem[gitlab-runner,,,rss]
 
 ## Crée des triggers si l'utilisation est à 0 (processus inactif) ou trop élevée (problème de performance).
 
-Catégorie      Trigger                                           Séverité Description
-Disponibilité  proc.num[gitlab-runner].last(0)}=0                High     Processus arrêté
-Disponibilité  systemd.unit.info[...].str("active")}=0           High     Service inactif
-CPU            proc.cpu.util[...].avg(5m)}>80                    Warning  Utilisation CPU élevée
-CPU            proc.cpu.util[...].last(0)}=0                     High     Processus inactif
-RAM            proc.mem[...].last(0)}>1G                         Warning  Utilisation mémoire élevée
-RAM            proc.mem[...].last(0)}=0                          High     Processus ne consomme pas de mémoire
-Disque         vfs.fs.size[/,free].last(0)}<10G                  High     Espace disque racine faible
-Disque         vfs.fs.size[/var/lib/docker,free].last(0)}<5G     High     Espace disque Docker faible
-Log            vfs.file.time[...].diff()}=0                      Warning  Log non mis à jour
+## Triggers pour la surveillance des ressources
+
+| Catégorie      | Trigger                                           | Séverité  | Description                          |
+|----------------|---------------------------------------------------|-----------|--------------------------------------|
+| Disponibilité  | `proc.num[gitlab-runner].last(0)}=0`              | High      | Processus arrêté                     |
+| Disponibilité  | `systemd.unit.info[...].str("active")}=0`          | High      | Service inactif                      |
+| CPU            | `proc.cpu.util[...].avg(5m)}>80`                   | Warning   | Utilisation CPU élevée               |
+| CPU            | `proc.cpu.util[...].last(0)}=0`                    | High      | Processus inactif                    |
+| RAM            | `proc.mem[...].last(0)}>1G`                        | Warning   | Utilisation mémoire élevée           |
+| RAM            | `proc.mem[...].last(0)}=0`                         | High      | Processus ne consomme pas de mémoire |
+| Disque         | `vfs.fs.size[/,free].last(0)}<10G`                 | High      | Espace disque racine faible          |
+| Disque         | `vfs.fs.size[/var/lib/docker,free].last(0)}<5G`    | High      | Espace disque Docker faible          |
+| Log            | `vfs.file.time[...].diff()}=0`                     | Warning   | Log non mis à jour                   |
+
