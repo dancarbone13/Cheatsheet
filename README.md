@@ -25,14 +25,19 @@ Utilisation : Crée un trigger si la valeur n'est pas active.
 Exemple de trigger : {Template_GitLab_Runner:systemd.unit.info[gitlab-runner.service,ActiveState].str("active")}=0
 Description : "Le service GitLab Runner est inactif ou en échec."
 
-## Surveillance du fichier de log
+## Surveillance du fichier de log de GitLab Runner
 
-Tu peux vérifier si le fichier de log est mis à jour régulièrement (indice que le runner fonctionne) :
-Clé : vfs.file.time[/var/log/gitlab-runner/gitlab-runner.log,modify]
-Type d'information : Numeric (timestamp)
-Utilisation : Crée un trigger si le timestamp n'a pas changé depuis X minutes.
-Exemple de trigger : {Template_GitLab_Runner:vfs.file.time[/var/log/gitlab-runner/gitlab-runner.log,modify].time()}<{$LOG_MODIFIED_MAX_AGE}
-Description : "Le log GitLab Runner n'a pas été mis à jour depuis {$LOG_MODIFIED_MAX_AGE} secondes."
+| Élément                | Détails                                                                                     |
+|------------------------|---------------------------------------------------------------------------------------------|
+| **Clé Zabbix**         | `vfs.file.time[/var/log/gitlab-runner/gitlab-runner.log,modify]`                             |
+| **Type d'information** | Numeric (timestamp)                                                                         |
+| **Utilisation**        | Créer un trigger si le timestamp n'a pas changé depuis X minutes.                           |
+| **Exemple de trigger** | `{Template_GitLab_Runner:vfs.file.time[/var/log/gitlab-runner/gitlab-runner.log,modify].time()} < {$LOG_MODIFIED_MAX_AGE}` |
+| **Description**        | "Le log GitLab Runner n'a pas été mis à jour depuis {$LOG_MODIFIED_MAX_AGE} secondes."       |
+| **Macro recommandée**  | `{$LOG_MODIFIED_MAX_AGE}` (ex: `300` pour 5 minutes, `600` pour 10 minutes)                  |
+| **Séverité suggérée**  | Warning (alerte précoce) ou High (si critique)                                              |
+| **Actions suggérées**  | Vérifier l'activité des jobs, l'état du service, ou redémarrer le service GitLab Runner.    |
+
 
 ## Surveillance de l'utilisation CPU/Mémoire
 Tu peux surveiller l'utilisation des ressources par le processus gitlab-runner :
